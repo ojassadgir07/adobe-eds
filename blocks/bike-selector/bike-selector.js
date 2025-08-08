@@ -3,10 +3,11 @@ export default function decorate(block) {
   if (!block.querySelector("heading")) {
     const props = Array.from(block.children).map((ele) => ele.children);
     heading = props[0][0].querySelector("h1, h2, h3, h4, h5, h6");
+    heading = props[0];
   } else {
     heading = block.querySelector("heading");
-  
   }
+
   block.innerHTML = "";
 
   block.append(heading);
