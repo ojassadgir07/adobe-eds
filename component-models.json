@@ -233,6 +233,24 @@
        "value": ""
      }
    ]
-}
+},
+{
+    "id": "bike-selector",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+      }
+    ]
+  }
 
 ]

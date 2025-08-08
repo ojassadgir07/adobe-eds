@@ -1,0 +1,6 @@
+{
+  "label": "Bike Selector",
+  "variants": ["standard", "sport", "deluxe"],
+  "colors": ["red", "blue", "black"],
+  "imagePath": "/blocks/bike-selector/images/"
+}
