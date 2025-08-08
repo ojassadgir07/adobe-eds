@@ -3,8 +3,7 @@ export default function decorate(block) {
  
    [...block.children].forEach((row) => {
      let heading;
-     moveInstrumentation(row, heading);
-          heading.classList.add("heading")
+     block.append(row);
 
    });
   // Title
