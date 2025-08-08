@@ -1,11 +1,18 @@
 export default function decorate(block) {
-  [...block.children].forEach((row) => {
-    headings.append(row);
-  });
   block.innerHTML = "";
-  [headings].forEach((row) => {
-   // block.append(row);
+
+  [...block.children].forEach((row) => {
+    const li = document.createElement("li");
+    moveInstrumentation(row, li);
+    while (row.firstElementChild) li.append(row.firstElementChild);
+    [...li.children].forEach((div) => {
+      if (div.children.length === 1 && div.querySelector("picture"))
+        div.className = "cards-card-image";
+      else div.className = "cards-card-body";
+    });
+    ul.append(li);
   });
+
   // Title
   const title = document.createElement("h2");
   title.textContent = "Select color and variant to buy";
@@ -29,7 +36,7 @@ export default function decorate(block) {
     label.append(input, ` ${variant.label}`);
     variantsDiv.append(label);
   });
-  
+  block.append(variantsDiv);
 
   // Image and rotate
   const imageContainer = document.createElement("div");
