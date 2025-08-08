@@ -241,7 +241,8 @@
         "component": "richtext",
         "valueType": "string",
         "name": "heading",
-        "label": "Heading"
+        "label": "Heading",
+        "value": ""
       },
       {
         "component": "richtext",
