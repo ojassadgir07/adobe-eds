@@ -1,7 +1,12 @@
 export default function decorate(block) {
   block.innerHTML = '';
-    heading = block.querySelector("h2.heading")
- block.append(heading);
+ 
+   [...block.children].forEach((row) => {
+     let heading;
+     moveInstrumentation(row, heading);
+          heading.classList.add("heading")
+
+   });
   // Title
   const title = document.createElement('h2');
   title.textContent = 'Select color and variant to buy';

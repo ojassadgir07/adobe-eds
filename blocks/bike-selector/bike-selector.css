@@ -43,3 +43,9 @@
 .bike-selector__rotate:hover {
   background: #ccc;
 }
+
+.heading {
+        font-size: 1.75rem;
+        line-height: 2.5rem;
+       background: #f20b0b;
+    }
