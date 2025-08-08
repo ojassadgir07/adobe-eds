@@ -4,7 +4,7 @@ export default function decorate(block) {
   });
   block.innerHTML = "";
   [headings].forEach((row) => {
-    block.append(row);
+   // block.append(row);
   });
   // Title
   const title = document.createElement("h2");
@@ -29,7 +29,7 @@ export default function decorate(block) {
     label.append(input, ` ${variant.label}`);
     variantsDiv.append(label);
   });
-  block.append(variantsDiv);
+  
 
   // Image and rotate
   const imageContainer = document.createElement("div");
