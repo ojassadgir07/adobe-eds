@@ -1,17 +1,15 @@
 export default function decorate(block) {
+    let heading;
+  if (!block.querySelector("h2.heading")) {
+    const props = Array.from(block.children).map((ele) => ele.children);
+    heading = props[0][0].querySelector("h2");
+  } else {
+    heading = block.querySelector("h2.heading");
+  
+  }
   block.innerHTML = "";
 
-  [...block.children].forEach((row) => {
-    const li = document.createElement("li");
-    moveInstrumentation(row, li);
-    while (row.firstElementChild) li.append(row.firstElementChild);
-    [...li.children].forEach((div) => {
-      if (div.children.length === 1 && div.querySelector("picture"))
-        div.className = "cards-card-image";
-      else div.className = "cards-card-body";
-    });
-    ul.append(li);
-  });
+  block.append(heading);
 
   // Title
   const title = document.createElement("h2");
