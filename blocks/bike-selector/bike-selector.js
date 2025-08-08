@@ -1,6 +1,6 @@
 export default function decorate(block) {
     let heading;
-  if (!block.querySelector("heading")) {
+  if (!block.querySelector("h2.heading")) {
     const props = Array.from(block.children).map((ele) => ele.children);
     heading = props[0][0].querySelector("h2");
   } else {
