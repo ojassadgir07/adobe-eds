@@ -17,7 +17,8 @@
       "columns",
       "fragment",
       "quote",
-      "bike-selector"
+      "bike-selector",
+      "carousel"
     ]
   },
   {
@@ -40,5 +41,9 @@
       "button",
       "title"
     ]
+  },
+  {
+    "id": "carousel",
+    "components": ["carousel-item"]
   }
 ]
