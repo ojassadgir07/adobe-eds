@@ -57,3 +57,7 @@
     width: 30px;
     background-color: darkgray;
 }
+
+.bg-green {
+    background-color: green;
+}
