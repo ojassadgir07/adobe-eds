@@ -1,5 +1,7 @@
-export default function decorate(block) {
-    let heading;
+import { fetchbikeVarients } from "../../scripts/common.js";
+
+export default async function decorate(block) {
+  let heading;
   if (!block.querySelector("heading")) {
     const props = Array.from(block.children).map((ele) => ele.children);
     heading = props[0][0].querySelector("h1, h2, h3, h4, h5, h6");
@@ -11,7 +13,20 @@ export default function decorate(block) {
   block.innerHTML = "";
 
   block.append(heading);
+  //https://www.heromotocorp.com/content/hero-commerce/in/en/products/product-page/executive/jcr:content.product.executive.glamour.DEL.DELHI.json
 
+  /* {
+            "Key": "Prodcut API",
+            "Text": "https://dev1.heromotocorp.com/content/hero-commerce/in/en/products/product-page/practical/jcr:content.product.practical.splendor-plus.{stateCode}.{cityCode}.json"
+        },
+*/
+  block.append(
+    div({ class: "middle-sec" }, div({ class: "loading" }, span("Loading...")))
+  );
+  var response = await fetchbikeVarients("DEL", "DELHI");
+  const productInfo = response.data.products.items?.[0];
+  const { variant_to_colors: variantsData, variants: allVariantsDetails } =
+    productInfo;
   // Title
   const title = document.createElement("h2");
   title.textContent = "Select color and variant to buy";
@@ -20,17 +35,13 @@ export default function decorate(block) {
   // Variants
   const variantsDiv = document.createElement("div");
   variantsDiv.className = "bike-selector__variants";
-  const variants = [
-    { value: "standard", label: "Standard" },
-    { value: "sport", label: "Sport" },
-    { value: "deluxe", label: "Deluxe" },
-  ];
+  const variants = variantsData;
   variants.forEach((variant, i) => {
     const label = document.createElement("label");
     const input = document.createElement("input");
     input.type = "radio";
     input.name = "variant";
-    input.value = variant.value;
+    input.value = variant.variant_price;
     if (i === 0) input.checked = true;
     label.append(input, ` ${variant.label}`);
     variantsDiv.append(label);
