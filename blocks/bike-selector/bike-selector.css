@@ -1,51 +1,55 @@
-.bike-selector {
-  border: 1px solid #ddd;
-  padding: 2rem;
-  border-radius: 8px;
-  background: #fff;
-  max-width: 500px;
-  margin: 2rem auto;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-.bike-selector__variants,
-.bike-selector__colors {
-  display: flex;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-  justify-content: center;
-}
-.bike-selector__image-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-  position: relative;
-}
-#bike-image {
-  width: 220px;
-  height: auto;
-  transition: transform 0.3s;
-}
-.bike-selector__rotate {
-  background: #eee;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  margin-left: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  transition: background 0.2s;
-}
-.bike-selector__rotate:hover {
-  background: #ccc;
+.section.bike-selector-container {
+    width: 100%;
 }
 
-.heading {
-        font-size: 1.75rem;
-        line-height: 2.5rem;
-       background: #f20b0b;
-    }
+.section.bike-selector-container .bike-selector-wrapper {
+    background: linear-gradient(180deg, #4f4d4d 0%, #3d3d3d 100%);
+    margin: unset;
+}
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector {
+    margin: 2rem auto;
+}
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector.block .heading {
+    text-transform: uppercase;
+    font-size: 3rem;
+    color: #fff;
+    letter-spacing: normal;
+    line-height: 3.625rem;
+    font-style: italic;
+    text-align: center;
+    font-weight: 700;
+    margin: 0;
+    padding: 1rem 0;
+    font-family: "TSTAR-PRO-Heavy";
+    font-weight: 900;
+}
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector__mainWrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector__variantsWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 20.9375rem;
+    margin: 1.5rem 0;
+
+}
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector__variantsWrapper .variants-wrap .text {
+    font-size: 1.125rem;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector__overViewWrapper {
+    display: flex;
+}
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector__colorsWrapper {
+    display: flex;
+    flex-direction: column;
+}

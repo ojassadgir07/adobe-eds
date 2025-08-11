@@ -4,7 +4,7 @@ import { fetchPlaceholders, getMetadata } from "./aem.js";
 export const placeholders = await fetchPlaceholders('default'); 
 
 const { domain, geoLocationApi, stateCityApi, prodcutApi, sendOtpApi, bookARideApi, dealerApi } = placeholders;
-
+const apiProxy = {};
 export async function fetchAPI(
   method,
   url,
@@ -65,7 +65,7 @@ export async function fetchAPI(
   });
 }
 
-export async function fetchbikeVarients() {
+export async function fetchbikeVarients(stateCode, cityCode) {
   const url = prodcutApi
     .replace("{stateCode}", stateCode)
     .replace("{cityCode}", cityCode);

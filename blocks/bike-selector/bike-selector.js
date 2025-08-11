@@ -1,56 +1,131 @@
 import { fetchbikeVarients } from "../../scripts/common.js";
+import {
+  div,
+  input,
+  label,
+  h4,
+  span,
+  img,
+  i,
+} from "../../scripts/dom-helpers.js";
 
-export default async function decorate(block) {
+export async function decorateBikeSelector(block) {
   let heading;
-  if (!block.querySelector("heading")) {
+  let bottomSection;
+
+  if (!block.querySelector("h2.heading")) {
     const props = Array.from(block.children).map((ele) => ele.children);
-    heading = props[0][0].querySelector("h1, h2, h3, h4, h5, h6");
-    heading = props[0];
+    heading = props[0][0].querySelector("h2");
+    heading.classList.add("heading");
+    bottomSection = props[1][0];
+    bottomSection.classList.add("bottom-sec");
   } else {
-    heading = block.querySelector("heading");
+    heading = block.querySelector("h2.heading");
+    bottomSection = block.querySelector(".bottom-sec");
   }
 
   block.innerHTML = "";
-
   block.append(heading);
-  //https://www.heromotocorp.com/content/hero-commerce/in/en/products/product-page/executive/jcr:content.product.executive.glamour.DEL.DELHI.json
 
-  /* {
-            "Key": "Prodcut API",
-            "Text": "https://dev1.heromotocorp.com/content/hero-commerce/in/en/products/product-page/practical/jcr:content.product.practical.splendor-plus.{stateCode}.{cityCode}.json"
-        },
-*/
   block.append(
-    div({ class: "middle-sec" }, div({ class: "loading" }, span("Loading...")))
+    div(
+      { class: "bike-selector__mainWrapper" },
+      div({ class: "loading" }, span("Loading..."))
+    )
   );
   var response = await fetchbikeVarients("DEL", "DELHI");
+  console.log(response);
   const productInfo = response.data.products.items?.[0];
   const { variant_to_colors: variantsData, variants: allVariantsDetails } =
     productInfo;
   // Title
-  const title = document.createElement("h2");
-  title.textContent = "Select color and variant to buy";
-  block.append(title);
 
-  // Variants
-  const variantsDiv = document.createElement("div");
-  variantsDiv.className = "bike-selector__variants";
-  const variants = variantsData;
-  variants.forEach((variant, i) => {
-    const label = document.createElement("label");
-    const input = document.createElement("input");
-    input.type = "radio";
-    input.name = "variant";
-    input.value = variant.variant_price;
-    if (i === 0) input.checked = true;
-    label.append(input, ` ${variant.label}`);
-    variantsDiv.append(label);
-  });
-  block.append(variantsDiv);
+  const initialVariantGroup = variantsData[0];
+  const initialColor = initialVariantGroup.colors[0];
 
+  const handleVariantChange = (e) => {
+    const selectedValueIndex = e.target.value;
+    block
+      .querySelectorAll(".bike-form-control")
+      .forEach((el) => el.classList.remove("active"));
+    e.target.closest(".bike-form-control").classList.add("active");
+
+    const selectedGroup = variantsData.find(
+      (v) => v.value_index == selectedValueIndex
+    );
+    if (selectedGroup) {
+      const { sku, label } = selectedGroup.colors[0];
+      //dataMapping.sku = sku;
+      //setDataMapping(dataMapping);
+      //updateMainImage(sku);
+      //renderColors(selectedGroup.colors, label);
+    }
+  };
+
+  const variantsDOM = div(
+    { class: "bike-selector__variantsWrapper" },
+    div({ class: "variants-wrap" },
+      div({ class: "text" }, "Variants"),
+      div(
+        { class: "radio-wrap" },
+        ...variantsData.map(
+          ({ value_index, label: variantLabel, variant_price }) => {
+            const isActive = initialVariantGroup.value_index === value_index;
+            const radioProps = {
+              class: "input-radio",
+              type: "radio",
+              id: value_index,
+              name: "variants",
+              value: value_index,
+              onChange: handleVariantChange,
+            };
+            if (isActive) radioProps.checked = true;
+
+            return div(
+              { class: `bike-form-control  ${isActive ? "active" : ""}` },
+              div(
+                { class: "price-txt-wrap " },
+                input(radioProps),
+                label({ for: value_index, class: "" }, span(variantLabel)),
+                div(
+                  { class: "price-sec" },
+                  span(`( ₹ ${variant_price.toLocaleString("en-IN")} )`)
+                )
+              )
+            );
+          }
+        )
+      )
+    )
+  );
+
+  const imageDom = div(
+    { class: "bike-selector__360View" },
+    div(
+      { class: "hero-360 w-100" },
+      div(
+        { class: "rotate-images" },
+        img({ class: "hero-icon left", src: "/images/rotate-left.png" }),
+        img({ class: "hero-icon right", src: "/images/rotate-right.png" })
+      ),
+      div(
+        { class: "hero-360" },
+        div(
+          { class: "spritespin-stage" },
+          img({
+            class: "rotate",
+            src: "",
+            width: "490",
+            height: "350",
+          })
+        )
+      ),
+      div({ class: "hero-360__" })
+    )
+  );
   // Image and rotate
   const imageContainer = document.createElement("div");
-  imageContainer.className = "bike-selector__image-container";
+  imageContainer.className = "bike-selector__overViewWrapper";
   const image = document.createElement("img");
   image.id = "bike-image";
   image.src = "/blocks/bike-selector/images/bike-standard-red.png";
@@ -65,27 +140,26 @@ export default async function decorate(block) {
   rotateIcon.textContent = "⟳";
   rotateBtn.append(rotateIcon);
   imageContainer.append(rotateBtn);
-  block.append(imageContainer);
+
 
   // Colors
   const colorsDiv = document.createElement("div");
-  colorsDiv.className = "bike-selector__colors";
-  const colors = [
-    { value: "red", label: "Red" },
-    { value: "blue", label: "Blue" },
-    { value: "black", label: "Black" },
-  ];
+  colorsDiv.className = "bike-selector__colorsWrapper";
+  const colors = variantsData[0].colors;
   colors.forEach((color, i) => {
     const label = document.createElement("label");
     const input = document.createElement("input");
     input.type = "radio";
     input.name = "color";
-    input.value = color.value;
+    input.value = color.label;
     if (i === 0) input.checked = true;
     label.append(input, ` ${color.label}`);
     colorsDiv.append(label);
   });
-  block.append(colorsDiv);
+
+  block
+    .querySelector(".bike-selector__mainWrapper")
+    .replaceChildren(variantsDOM, imageDom, colorsDiv);
 
   // Interactivity
   let rotation = 0;
@@ -108,4 +182,8 @@ export default async function decorate(block) {
   block
     .querySelectorAll('input[name="color"]')
     .forEach((c) => c.addEventListener("change", updateImage));
+}
+
+export default async function decorate(block) {
+  await decorateBikeSelector(block);
 }
