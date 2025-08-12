@@ -80,11 +80,12 @@
 }
 
 @font-face {
-    font-family: "hero-icon-font";
-    src: url('../fonts/hero-icon-font.ttf') ;
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-    font-display: block;
-    font-display: swap;
+  font-family: hero-icon-font;
+  font-style: normal;
+  font-weight: normal;
+  font-display: block;
+  src: url('../icons/hero-icon-font.ttf') format('truetype'),
+    url('../icons/hero-icon-font.woff') format('woff'),
+    url('../icons/hero-icon-font.svg') format('svg'),
+    url('../icons/hero-icon-font.eot') format('eot');
 }
