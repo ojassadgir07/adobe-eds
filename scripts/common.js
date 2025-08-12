@@ -317,12 +317,3 @@ export async function fetchbikeVarients(stateCode, cityCode) {
    sessionStorage.setItem("dataMapping", JSON.stringify(data));
   return data;
 }
-
-export async function useDataMapping() {
-  const data = await getDataMapping();
-  function setDataMapping(newData) {
-    sessionStorage.setItem("dataMapping", JSON.stringify(newData));
-  }
-  return [data, setDataMapping]
-
-}
