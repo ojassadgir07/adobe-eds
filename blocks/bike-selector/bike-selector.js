@@ -12,6 +12,7 @@ import {
 export async function decorateBikeSelector(block) {
   let heading;
   let bottomSection;
+  
 
   if (!block.querySelector("h2.heading")) {
     const props = Array.from(block.children).map((ele) => ele.children);
