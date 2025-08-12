@@ -255,3 +255,25 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+
+.hero-icon {
+  font-family: "hero-icon-font" !important;
+
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  font-size: 24px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+}

@@ -314,5 +314,54 @@ export async function fetchbikeVarients(stateCode, cityCode) {
     .replace("{stateCode}", stateCode)
     .replace("{cityCode}", cityCode);
   const data = await fetchAPI("GET", url);
+   sessionStorage.setItem("dataMapping", JSON.stringify(data));
   return data;
+}
+
+async function getDataMapping() {
+  let data = sessionStorage.getItem("dataMapping");
+  if (!data) {
+    let cityMaster = await fetchStateCityMaster();
+    processDataMapping(cityMaster);
+    let { city, state } = await fetchStateCity();
+    // debugger;
+    if (city.toUpperCase() === 'NEW DELHI') {
+      city = 'DELHI';
+      state = 'DELHI';
+    }
+    const code =
+      dataMapping.state_city_master[state.toUpperCase()][city.toUpperCase()] || {
+        "cityCode": "DELHI",
+        "label": "DELHI",
+        "stateCode": "DEL"
+      };
+    // console.log(code);
+    dataMapping.current_location = {
+      stateCode: code?.stateCode, cityCode: code?.code, city, state
+    }
+    const { data: { products: { items: [productInfo] } } } = await fetchAPI(
+      "GET",
+      prodcutApi
+        .replace("{stateCode}", code.stateCode)
+        .replace("{cityCode}", code.code)
+    );
+    const { variant_to_colors: variantsData, variants: allVariantsDetails } = productInfo;
+    // console.log(data);
+    dataMapping.sku = variantsData[0].colors[0].sku;
+    sessionStorage.setItem("dataMapping", JSON.stringify(dataMapping));
+    data = sessionStorage.getItem("dataMapping");
+    // setSkuAndStateCity();
+  }
+  data = JSON.parse(data);
+  return data;
+}
+
+
+export async function useDataMapping() {
+  const data = await getDataMapping();
+  function setDataMapping(newData) {
+    sessionStorage.setItem("dataMapping", JSON.stringify(newData));
+  }
+  return [data, setDataMapping]
+
 }

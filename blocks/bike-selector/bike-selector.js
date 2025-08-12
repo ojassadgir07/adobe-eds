@@ -8,11 +8,10 @@ import {
   img,
   i,
 } from "../../scripts/dom-helpers.js";
-
+let currentFrame = 0;
 export async function decorateBikeSelector(block) {
   let heading;
   let bottomSection;
-  
 
   if (!block.querySelector("h2.heading")) {
     const props = Array.from(block.children).map((ele) => ele.children);
@@ -34,8 +33,9 @@ export async function decorateBikeSelector(block) {
       div({ class: "loading" }, span("Loading..."))
     )
   );
-  var response = await fetchbikeVarients("DEL", "DELHI");
-  console.log(response);
+  block.append(bottomSection);
+  let response = await fetchbikeVarients("DEL", "DELHI");
+
   const productInfo = response.data.products.items?.[0];
   const { variant_to_colors: variantsData, variants: allVariantsDetails } =
     productInfo;
@@ -43,6 +43,60 @@ export async function decorateBikeSelector(block) {
 
   const initialVariantGroup = variantsData[0];
   const initialColor = initialVariantGroup.colors[0];
+
+  const getVariantDetailsBySku = (sku) =>
+    allVariantsDetails.find((variant) => variant[sku])?.[sku];
+  var dataMapping = { sku: initialColor.sku };
+
+  const updateMainImage = (sku) => {
+    const media = getVariantDetailsBySku(sku);
+    const imgEl = block.querySelector(
+      ".bike-selector__360View  .hero-360 .hero-360 .spritespin-stage .rotate"
+    );
+    if (media?.product?.media_gallery?.length && imgEl) {
+      imgEl.src = media.product.media_gallery[0].url;
+    }
+  };
+
+  const renderColors = (colors, selectedLabel) => {
+    const container = block.querySelector(".colors-container .color-wrapp");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    colors.forEach(({ sku, label: colorLabel, color_swatch_url }) => {
+      const option = div(
+        {
+          class: `color-option ${colorLabel === selectedLabel ? "active" : ""}`,
+          onClick: () => {
+            dataMapping.sku = sku;
+
+            updateMainImage(sku);
+            updateActiveColorSwatch(colorLabel);
+          },
+        },
+        span(colorLabel),
+        img({
+          class: "swatch-color",
+          loading: "lazy",
+          src: `https://www.heromotocorp.com${color_swatch_url}`,
+          alt: colorLabel,
+        })
+      );
+      container.append(option);
+    });
+  };
+
+  const updateActiveColorSwatch = (colorLabel) => {
+    block
+      .querySelectorAll(".color-option")
+      .forEach((option) =>
+        option.classList.toggle(
+          "active",
+          option.querySelector("span").textContent === colorLabel
+        )
+      );
+  };
 
   const handleVariantChange = (e) => {
     const selectedValueIndex = e.target.value;
@@ -56,16 +110,16 @@ export async function decorateBikeSelector(block) {
     );
     if (selectedGroup) {
       const { sku, label } = selectedGroup.colors[0];
-      //dataMapping.sku = sku;
-      //setDataMapping(dataMapping);
-      //updateMainImage(sku);
-      //renderColors(selectedGroup.colors, label);
+      dataMapping.sku = sku;
+      updateMainImage(sku);
+      renderColors(selectedGroup.colors, label);
     }
   };
 
   const variantsDOM = div(
     { class: "bike-selector__variantsWrapper" },
-    div({ class: "variants-wrap" },
+    div(
+      { class: "variants-wrap" },
       div({ class: "text" }, "Variants"),
       div(
         { class: "radio-wrap" },
@@ -100,6 +154,12 @@ export async function decorateBikeSelector(block) {
     )
   );
 
+  const {
+    product: {
+      media_gallery: [firstImage],
+    },
+  } = getVariantDetailsBySku(initialColor.sku);
+
   const imageDom = div(
     { class: "bike-selector__360View" },
     div(
@@ -115,7 +175,7 @@ export async function decorateBikeSelector(block) {
           { class: "spritespin-stage" },
           img({
             class: "rotate",
-            src: "",
+            src: firstImage.url,
             width: "490",
             height: "350",
           })
@@ -124,67 +184,45 @@ export async function decorateBikeSelector(block) {
       div({ class: "hero-360__" })
     )
   );
-  // Image and rotate
-  const imageContainer = document.createElement("div");
-  imageContainer.className = "bike-selector__overViewWrapper";
-  const image = document.createElement("img");
-  image.id = "bike-image";
-  image.src = "/blocks/bike-selector/images/bike-standard-red.png";
-  image.alt = "Bike";
-  imageContainer.append(image);
-  const rotateBtn = document.createElement("button");
-  rotateBtn.id = "rotate-btn";
-  rotateBtn.className = "bike-selector__rotate";
-  rotateBtn.title = "Rotate Bike";
-  const rotateIcon = document.createElement("span");
-  rotateIcon.className = "rotate-icon";
-  rotateIcon.textContent = "⟳";
-  rotateBtn.append(rotateIcon);
-  imageContainer.append(rotateBtn);
 
 
-  // Colors
-  const colorsDiv = document.createElement("div");
-  colorsDiv.className = "bike-selector__colorsWrapper";
-  const colors = variantsData[0].colors;
-  colors.forEach((color, i) => {
-    const label = document.createElement("label");
-    const input = document.createElement("input");
-    input.type = "radio";
-    input.name = "color";
-    input.value = color.label;
-    if (i === 0) input.checked = true;
-    label.append(input, ` ${color.label}`);
-    colorsDiv.append(label);
-  });
-
+  const colorsDiv = div(
+    { class: "colors-container" },
+    h4({ class: "mb-8 weight" }, "Colours"),
+    div({ class: "color-wrapp" })
+  );
+  
   block
     .querySelector(".bike-selector__mainWrapper")
     .replaceChildren(variantsDOM, imageDom, colorsDiv);
 
-  // Interactivity
-  let rotation = 0;
-  rotateBtn.addEventListener("click", () => {
-    rotation = (rotation + 30) % 360;
-    image.style.transform = `rotate(${rotation}deg)`;
-  });
+  const mainImage = block.querySelector(".bike-selector__360View .rotate");
+  const leftIcon = block.querySelector(".hero-icon.left");
+  const rightIcon = block.querySelector(".hero-icon.right");
 
-  function updateImage() {
-    const variant = block.querySelector('input[name="variant"]:checked').value;
-    const color = block.querySelector('input[name="color"]:checked').value;
-    image.src = `/blocks/bike-selector/images/bike-${variant}-${color}.png`;
-    image.alt = `${variant} bike in ${color}`;
-    image.style.transform = `rotate(${rotation}deg)`;
+  renderColors(initialVariantGroup.colors, initialColor.label);
+
+  if (leftIcon && rightIcon) {
+    leftIcon.addEventListener("click", () => {
+      const media = getVariantDetailsBySku(dataMapping.sku);
+      const rotateUrls = media.product.media_gallery;
+      rotateFrame(rotateUrls, mainImage, -1);
+    });
+    rightIcon.addEventListener("click", () => {
+      const media = getVariantDetailsBySku(dataMapping.sku);
+      const rotateUrls = media.product.media_gallery;
+      rotateFrame(rotateUrls, mainImage, 1);
+    });
   }
 
-  block
-    .querySelectorAll('input[name="variant"]')
-    .forEach((v) => v.addEventListener("change", updateImage));
-  block
-    .querySelectorAll('input[name="color"]')
-    .forEach((c) => c.addEventListener("change", updateImage));
 }
 
 export default async function decorate(block) {
   await decorateBikeSelector(block);
 }
+const rotateFrame = (rotateUrlString, imgEl, direction = 1) => {
+  const imgRotateUrls = rotateUrlString;
+  const totalFrames = imgRotateUrls.length;
+  currentFrame = (currentFrame + direction + totalFrames) % totalFrames;
+  imgEl.src = imgRotateUrls[currentFrame].url;
+};
