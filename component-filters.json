@@ -18,7 +18,9 @@
       "fragment",
       "quote",
       "bike-selector",
-      "carousel"
+      "carousel",
+      "form",
+      "form-block"
     ]
   },
   {
@@ -45,5 +47,9 @@
   {
     "id": "carousel",
     "components": ["carousel-item"]
+  },
+  {
+    "id": "form-block",
+    "components": ["form-field"]
   }
 ]
