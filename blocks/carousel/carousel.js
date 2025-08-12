@@ -6,6 +6,7 @@ export default function decorate(block) {
   // console.log("Carousel block detected");
 
   // Add unique class names to children
+  console.log('block',block.children);
   Array.from(block.children).forEach((element, index) => {
     element.classList.add("inner-" + (index + 1));
     Array.from(element.children).forEach((child, subIndex) => {
@@ -27,8 +28,13 @@ export default function decorate(block) {
     swiperWrapper.appendChild(element);
   });
 
-  Array.from(swiperWrapper.querySelectorAll(".inner-innerSub-1 h3")).forEach((i) => i.remove());
-
+  Array.from(swiperWrapper.querySelectorAll(".inner-innerSub-1 h4")).forEach((i) => i.remove());
+console.log("NNN",swiperWrapper.querySelectorAll(".inner-innerSub-1 h3"))
+swiperWrapper.querySelectorAll(".inner-innerSub-1 h3").forEach((i) => {
+ const span = document.createElement("span");
+  span.className = "heroicon-short-logo hero-icon me-5 mt-4";
+  i.prepend(span);
+});
   // Clear block and append new structure
   block.innerHTML = "";
   block.appendChild(swiperWrapper);
@@ -70,8 +76,17 @@ export default function decorate(block) {
         const el = paginationTexts[index];
         if (!el) return `<span class="${className}">•</span>`;
         const clone = el.cloneNode(true);
-        clone.classList.add("swiper-pagination-bullet");
-        return clone.outerHTML;
+        const wrapper = document.createElement("div");
+        wrapper.classList.add("hero-feature-carousel__thumbnail-item", "border-end", "px-4", "px-lg-11", "d-flex", "justify-content-center")
+        const icon = document.createElement("span");
+        icon.className = "hero-icon";
+        if (clone.id) {
+          icon.classList.add(clone.id);
+        }
+        wrapper.classList.add("swiper-pagination-bullet");
+        wrapper.appendChild(icon);
+        wrapper.appendChild(clone);
+        return wrapper.outerHTML;
       },
     },
     freeMode: true,

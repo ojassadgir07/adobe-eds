@@ -8,6 +8,26 @@
 .carousel-container{
     background: linear-gradient(180deg, #4f4d4d 0%, #3d3d3d 100%);
     color: #FFF;
+    padding: 0 32px;;
+}
+.carousel-containerr, .hero-container-fluid, .hero-container-lg {
+    --bs-gutter-x: 2rem;
+    --bs-gutter-y: 0;
+    width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-right: auto;
+    margin-left: auto;
+}
+@media (min-width: 1024px) {
+    .carousel-container, .hero-container-fluid, .hero-container-lg {
+        --bs-gutter-x: 5rem;
+    }
+}
+@media (min-width: 64rem) {
+    .hero-container-lg, .hero-container-sm, .carousel-container {
+        max-width: 85.375rem;
+    }
 }
 
 .carousel-wrapper {
@@ -57,6 +77,9 @@
     margin: 0 !important;
     height: 22.7rem;
     width: 22.7rem;
+}
+.carousel>.swiper-wrapper>.swiper-slide>.inner-innerSub-2>p:first-child img {
+    border-radius: 50%;
 }
 
 .carousel>.swiper-wrapper>.swiper-slide>.inner-innerSub-2>p:nth-child(2) {
@@ -121,7 +144,7 @@
     right: 10px;
 }
 
-.swiper-pagination-bullet {
+.carousel .swiper-pagination-bullet {
     margin: 4 4px;
     opacity: 1;
     height: auto;
@@ -130,6 +153,12 @@
     background: transparent;
     border-radius: 0;
     font-weight: 900;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.carousel .hero-feature-carousel__thumbnail-item:has(h4.swiper-pagination-bullet-active) {
+  color: #ee2326;
 }
 
 /* 2 */
@@ -251,7 +280,7 @@
 }
 
 .carousel .swiper-button-next {
-    right: -20px;
+    right: 0;
     top: 44px;
 }
 
@@ -265,7 +294,7 @@
     display: flex;
     gap: 60px;
     justify-content: flex-start;
-    margin: 0 126px;
+    margin: 0 92px;
     gap: 1rem;
     /* margin-bottom: 10px; */
     margin-top: 2px;
@@ -306,7 +335,7 @@
 }
 
 
-.section .carousel-wrapper .carousel .swiper-pagination>h3.swiper-pagination-bullet-active {
+.section .carousel-wrapper .carousel .swiper-pagination>h3.swiper-pagination-bullet-active h4 {
     font-weight: 900;
     font-family: "TSTAR-PRO-Heavy";
     /* align-items: center; */
@@ -526,4 +555,135 @@
     .hero-footer-icon>.default-content-wrapper>p {
         margin: 10px;
     }
+}
+
+.carousel .hero-feature-carousel__thumbnail-item {
+    -webkit-column-gap: .75rem;
+    -moz-column-gap: .75rem;
+    column-gap: .75rem;
+}
+
+.carousel .hero-feature-carousel__thumbnail-item h4 {
+  margin: auto;
+  margin-top: 4px;
+  font-family: "TSTAR-PRO-Medium";
+  font-weight: 400;
+}
+
+.carousel .hero-feature-carousel__thumbnail-item.swiper-pagination-bullet-active h4 {
+  font-weight: 900;
+}
+
+.carousel .hero-icon {
+    font-family: "hero-icon-font" !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    font-size: 24px;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: pointer;
+}
+
+@media (min-width: 1024px) {
+   .heroicon-short-logo:before {
+        padding-left: .125rem;
+    }
+}
+.heroicon-short-logo:before {
+    padding-left: .125rem;
+}
+.heroicon-short-logo:before {
+    content: "";
+    color: #ee2326;
+}
+
+/* general styles  */
+.px-4 {
+    padding-right: .5rem !important;
+    padding-left: .5rem !important;
+}
+
+@media (min-width: 64rem) {
+    .px-lg-11 {
+        padding-right: 1.375rem !important;
+        padding-left: 1.375rem !important;
+    }
+}
+
+.justify-content-center {
+    -webkit-box-pack: center !important;
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+}
+.border-end {
+    border-right: 1px solid #a5a5a5 !important;
+}
+.d-flex {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+}
+.me-5 {
+    margin-right: .625rem !important;
+}
+.mt-4 {
+    margin-top: .5rem !important;
+}
+
+/* icons content */
+.hero-icon.lamp:before {
+    content: "";
+}
+.hero-icon.switch:before {
+    content: "";
+}
+
+.hero-icon.design:before {
+    content: "";
+}
+.hero-icon.headlamp:before {
+    content: "";
+}
+.hero-icon.engine:before {
+    content: "";
+}
+.hero-icon.digital-console:before {
+    content: "";
+}
+.hero-icon.mileage-indicator:before {
+    content: "";
+}
+.hero-icon.mileage:before {
+    content: "";
+}
+.hero-icon.charging-port:before {
+    content: "";
+}
+.hero-icon.tyre:before {
+    content: "";
+}
+.hero-icon.wheel:before {
+    content: "";
+}
+.hero-icon.seat:before {
+    content: "";
+}
+.hero-icon.seat-height:before {
+    content: "";
+}
+.hero-icon.badging:before {
+    content: "";
+}
+.hero-icon.clearance:before {
+    content: "";
 }
