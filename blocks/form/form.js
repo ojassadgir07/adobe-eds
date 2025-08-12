@@ -84,13 +84,13 @@ function errorField(message) {
 };
 
 function showError(field, msg) {
-  const msgEl = field.querySelector('.error-msg')
+  const msgEl = field?.querySelector('.error-msg')
   if (!msg) {
     msgEl?.remove();
   } else if (msgEl) {
     msgEl.textContent = msg
   } else {
-    field.appendChild(errorField(msg));
+    field?.appendChild(errorField(msg));
   }
 }
 
@@ -164,31 +164,73 @@ function validateEmail(fieldWrapper, inpVal) {
 
 async function createForm(formHref, submitHref) {
   const { pathname } = new URL(formHref);
-  const resp = await fetch(pathname);
-  const json = await resp.json();
-
-  const form = document.createElement("form");
-  form.dataset.action = submitHref;
-
-  const fields = await Promise.all(
-    json.data.map((fd) => createField(fd, form))
-  );
-  fields.forEach((field) => {
-    if (field) {
-      form.append(field);
+  console.log('Fetching form from:', pathname);
+  
+  try {
+    const resp = await fetch(pathname);
+    console.log('Response status:', resp.status);
+    console.log('Response headers:', Object.fromEntries(resp.headers.entries()));
+    
+    if (!resp.ok) {
+      throw new Error(`HTTP error! status: ${resp.status}`);
     }
-  });
+    
+    const responseText = await resp.text();
+    console.log('Response text:', responseText);
+    
+    if (!responseText || responseText.trim() === '') {
+      throw new Error('Empty response received');
+    }
+    
+    let json;
+    try {
+      json = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error('JSON parse error:', parseError);
+      console.error('Response text that failed to parse:', responseText);
+      throw new Error(`Invalid JSON: ${parseError.message}`);
+    }
+    
+    if (!json || !json.data || !Array.isArray(json.data)) {
+      console.error('Invalid JSON structure:', json);
+      throw new Error('JSON must contain a "data" array');
+    }
+    
+    console.log('Parsed JSON data:', json);
 
-  const fieldsets = form.querySelectorAll("fieldset");
-  fieldsets.forEach((fieldset) => {
-    form
-      .querySelectorAll(`[data-fieldset="${fieldset.name}"`)
-      .forEach((field) => {
-        fieldset.append(field);
-      });
-  });
+    const form = document.createElement("form");
+    form.dataset.action = submitHref;
 
-  return form;
+    const fields = await Promise.all(
+      json.data.map((fd) => createField(fd, form))
+    );
+    fields.forEach((field) => {
+      if (field) {
+        form.append(field);
+      }
+    });
+
+    const fieldsets = form.querySelectorAll("fieldset");
+    fieldsets.forEach((fieldset) => {
+      form
+        .querySelectorAll(`[data-fieldset="${fieldset.name}"`)
+        .forEach((field) => {
+          fieldset.append(field);
+        });
+    });
+
+    return form;
+  } catch (error) {
+    console.error('Error in createForm:', error);
+    // Create a user-friendly error message
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'form-error';
+    errorDiv.innerHTML = `
+      <p>Failed to load form: ${error.message}</p>
+      <p>Please check the form configuration or contact support.</p>
+    `;
+    return errorDiv;
+  }
 }
 
 function generatePayload(form) {
@@ -276,9 +318,9 @@ export default async function decorate(block) {
   });
 
   const state_inp = form.state;
-  const state_field_wrapper = state_inp.closest(".field-wrapper");
+  const state_field_wrapper = state_inp?.closest(".field-wrapper");
   const city_inp = form.city;
-  const city_field_wrapper = city_inp.closest(".field-wrapper");
+  const city_field_wrapper = city_inp?.closest(".field-wrapper");
 
   const { wrapper: stateCustomWrapper, input: stateCustomInput, clearBtn: stateClearBtn, dropdownBtn: stateDropdownBtn, list: stateList } = createDropdownInput('Select State', 'state');
   const { wrapper: cityCustomWrapper, input: cityCustomInput, clearBtn: cityClearBtn, dropdownBtn: cityDropdownBtn, list: cityList } = createDropdownInput('Select City', 'city');
@@ -286,13 +328,13 @@ export default async function decorate(block) {
   stateCustomInput.id = 'state-input';
   cityCustomInput.id = 'city-input';
 
-  state_inp.replaceWith(stateCustomWrapper);
-  state_field_wrapper.appendChild(stateList);
+  state_inp?.replaceWith(stateCustomWrapper);
+  state_field_wrapper?.appendChild(stateList);
 
-  city_inp.replaceWith(cityCustomWrapper);
-  city_field_wrapper.appendChild(cityList);
+  city_inp?.replaceWith(cityCustomWrapper);
+  city_field_wrapper?.appendChild(cityList);
 
-  block.querySelectorAll(".book-ride input").forEach((inp) => inp.setAttribute("autocomplete", "off"));
+  block?.querySelectorAll(".book-ride input")?.forEach((inp) => inp.setAttribute("autocomplete", "off"));
 
   const mappedStates = dataMapping.state_city_master.state.map(stateLabel => ({
     label: stateLabel,
@@ -554,7 +596,7 @@ export default async function decorate(block) {
     }
   }
   sendOTPHandler = debounce(sendOTPHandler, 1000);
-  block.querySelector(".sendOTP-btn").addEventListener("click", sendOTPHandler);
+  block?.querySelector(".sendOTP-btn")?.addEventListener("click", sendOTPHandler);
 
   function resendOTPHandler() {
     // console.log("Hi Resend otp");
@@ -567,18 +609,18 @@ export default async function decorate(block) {
     }
   }
   resendOTPHandler = debounce(resendOTPHandler, 1000);
-  block.querySelector(".resendOTP-btn").addEventListener("click", resendOTPHandler);
+  block?.querySelector(".resendOTP-btn")?.addEventListener("click", resendOTPHandler);
 
   const nameInp = form.name;
-  const nameField = nameInp.closest(".text-wrapper");
-  nameInp.addEventListener("input", function () {
+  const nameField = nameInp?.closest(".text-wrapper");
+  nameInp?.addEventListener("input", function () {
     this.value = this.value.substr(0, 20);
     validateName(nameField, nameInp.value);
   });
 
   const mobInp = form.mobile;
-  const mobField = mobInp.closest(".tel-wrapper");
-  mobInp.addEventListener("input", function () {
+  const mobField = mobInp?.closest(".tel-wrapper");
+  mobInp?.addEventListener("input", function () {
     this.value = this.value.substr(0, 10);
     block.querySelector(".sendOTP-btn").classList.add("dsp-none");
     block.querySelector(".resendOTP-btn").classList.add("dsp-none");
@@ -592,15 +634,15 @@ export default async function decorate(block) {
   });
 
   const otpInp = form.otp;
-  const otpField = otpInp.closest(".field-wrapper");
-  otpInp.addEventListener("input", function () {
+  const otpField = otpInp?.closest(".field-wrapper");
+  otpInp?.addEventListener("input", function () {
     this.value = this.value.substr(0, 6);
     validateOtp(otpField, form.mobile.value, otpInp.value);
   })
 
   const emailInp = form.email;
-  const emailField = emailInp.closest(".email-wrapper");
-  emailInp.addEventListener("input", function () {
+  const emailField = emailInp?.closest(".email-wrapper");
+  emailInp?.addEventListener("input", function () {
     validateEmail(emailField, emailInp.value);
   });
 
