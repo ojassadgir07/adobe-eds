@@ -22,13 +22,26 @@
     font-weight: 700;
     margin: 0;
     padding: 1rem 0;
-    font-family: "TSTAR-PRO-Heavy";
-    font-weight: 900;
+    font-family: "TSTAR-PRO-Regular";
+    font-weight: 600;
 }
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector.block .bottom-sec {
+    font-size: 1rem;
+    color: #fff;
+    letter-spacing: normal;
+    font-weight: 700;
+    margin: 0 3rem;
+    padding-bottom: 1rem;
+    font-family: "TSTAR-PRO-Heavy";
+}
+
+
 
 .section.bike-selector-container .bike-selector-wrapper .bike-selector__mainWrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    margin: 0rem 0rem;
 }
 
 .section.bike-selector-container .bike-selector-wrapper .bike-selector__variantsWrapper {
@@ -36,13 +49,99 @@
     flex-direction: column;
     width: 20.9375rem;
     margin: 1.5rem 0;
+    color: #fff;
 
 }
 
-.section.bike-selector-container .bike-selector-wrapper .bike-selector__variantsWrapper .variants-wrap .text {
-    font-size: 1.125rem;
+.section.bike-selector-container .bike-selector-wrapper .bike-selector__variantsWrapper .variants-wrap .radio-wrap input[type=radio] {
+    display: none;
+}
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector__variantsWrapper .variants-wrap .radio-wrap input[type=radio]+label::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 1rem;
+    height: 1rem;
+    margin-right: .5rem;
+    border: .0625rem solid silver;
+    border-radius: 50%;
+    outline: .0625rem solid rgba(0, 0, 0, 0);
+}
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector__variantsWrapper .variants-wrap .radio-wrap input[type=radio]:checked+label::before {
+    background-color: #ee2326;
+    border: 5px solid #ee2326;
+    -webkit-animation: radio-circle .4s ease-out forwards;
+    animation: radio-circle .4s ease-out forwards;
+    outline: .0625rem solid #d30000;
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+@keyframes radio-circle {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    50% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        background-color: #fff;
+        -webkit-box-shadow: .633333px .633333px 1.26667px rgba(255, 0, 0, .25), inset 0px 2.53333px 2.53333px rgba(255, 0, 0, .25);
+        box-shadow: .633333px .633333px 1.26667px rgba(255, 0, 0, .25), inset 0px 2.53333px 2.53333px rgba(255, 0, 0, .25);
+    }
+}
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector__variantsWrapper .variants-wrap .radio-wrap .bike-form-control .price-txt-wrap label{
     color: #fff;
-    margin-bottom: 1rem;
+    font-family: "TSTAR-PRO-Regular";
+    font-weight: 400;
+}
+.section.bike-selector-container .bike-selector-wrapper .bike-selector__variantsWrapper .variants-wrap .radio-wrap .bike-form-control .price-txt-wrap .price-sec {
+    color: #fff;
+    font-family: "TSTAR-PRO-Regular";
+    font-weight: 400;
+    padding-bottom: 1rem;
+}
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector__variantsWrapper .variants-wrap .radio-wrap .bike-form-control.active .price-txt-wrap label{
+    color: #fff;
+    font-family: "TSTAR-PRO-Heavy";
+    font-weight: 900;
+}
+.section.bike-selector-container .bike-selector-wrapper .bike-selector__variantsWrapper .variants-wrap .radio-wrap .bike-form-control.active .price-txt-wrap .price-sec {
+        color: #fff;
+    font-family: "TSTAR-PRO-Heavy";
+    font-weight: 900;
+}
+
+.section.bike-selector-container .bike-selector-wrapper  .bike-selector__360View {
+    width: 30%;
+}
+
+.section.bike-selector-container .bike-selector-wrapper  .bike-selector__360View .hero-360 .rotate-images {
+    display: flex;
+    justify-content: space-between;
+    img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector__variantsWrapper .variants-wrap .text {
+  margin-bottom: 0.5em;
+  font-family: var(--heading-font-family);
+  font-weight: 700;
+  line-height: 1.25;
+    font-size: 1.5rem;
 }
 
 .section.bike-selector-container .bike-selector-wrapper .bike-selector__overViewWrapper {
@@ -52,4 +151,48 @@
 .section.bike-selector-container .bike-selector-wrapper .bike-selector__colorsWrapper {
     display: flex;
     flex-direction: column;
+    color: #fff;
+}
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector.block .bike-selector__mainWrapper .colors-container {
+    color: #fff;
+}
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector.block .bike-selector__mainWrapper .colors-container .color-wrapp .color-option img {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector.block .bike-selector__mainWrapper .colors-container .color-wrapp .color-option.active img {
+    border: .125rem solid #000;
+}
+
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector.block .bike-selector__mainWrapper .colors-container  .color-wrapp .color-option {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 15px;
+    font-family: "TSTAR-PRO-Heavy";
+    font-size: 18px;
+    line-height: 24px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    color: #fff;
+
+}
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector.block .bike-selector__mainWrapper .colors-container  .color-wrapp .color-option>span {
+    font-family: "TSTAR-PRO-Regular";
+    font-weight: 400;
+    color: #fff;
+}
+
+.section.bike-selector-container .bike-selector-wrapper .bike-selector.block .bike-selector__mainWrapper .colors-container  .color-wrapp .color-option.active>span {
+   font-family: "TSTAR-PRO-Heavy";
+       font-weight: 900;
 }
