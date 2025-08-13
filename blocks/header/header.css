@@ -97,4 +97,7 @@ header nav {
     color: var(--text-color);
     font-family: TSTAR-PRO-Medium;
     font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;  
+    text-decoration: none;
 }
