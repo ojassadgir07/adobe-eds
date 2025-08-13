@@ -6,7 +6,7 @@ footer {
 .footer-wrapper {
     background-color: black !important;
     color: white;
-     background-color: var(--Brand-Black, #000000);
+    background-color: var(--Brand-Black, #000000);
     padding: 60px 90px 34px 90px
 }
 
@@ -26,7 +26,7 @@ footer {
 }
 
 .footer>div>.hero-footer>.default-content-wrapper>ul>li>p {
-   padding-bottom: 8px;
+    padding-bottom: 8px;
 }
 
 .footer>div>.hero-footer>.default-content-wrapper>ul>li>p>a {
@@ -48,18 +48,82 @@ footer {
 }
 
 .footer>div>.hero-footer>.default-content-wrapper>ul>li>ul>li>a {
-        text-decoration: none !important;
-            color: #f3f3f3;
-                font-size: var(--font-size16);
+    text-decoration: none !important;
+    color: #f3f3f3;
+    font-size: var(--font-size16);
     font-family: TSTAR-PRO-Medium;
     color: var(--text-color-lightgrey);
     padding-bottom: 10px;
-   
-
-  
     font-style: normal;
     font-weight: var(--font-weight-400);
     line-height: 22.4px;
     padding-bottom: .5rem !important
-    
+}
+
+
+
+.footer>div>.hero-footer-icon>.default-content-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer>div>.hero-footer-icon>.default-content-wrapper>ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer>div>.hero-footer-icon>.default-content-wrapper>ul>li>ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+.footer>div>.hero-footer-policy>.default-content-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer>div>.hero-footer-policy>.default-content-wrapper>ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer>div>.hero-footer-policy>.default-content-wrapper>ul>li>ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+.footer>div>.hero-footer-policy>.default-content-wrapper>ul>li>a {
+
+    font-family: TSTAR-PRO-Regular !important;
+    color: #f3f3f3;
+    font-size: var(--font-size14) !important;
+    font-style: normal;
+    font-weight: var(--font-weight-300);
+    line-height: 19.6px !important;
+      padding-right: 10px;
+    border-right: 1px solid #f3f3f3;
+}
+
+
+
+
+.footer>div>.hero-footer-policy>.default-content-wrapper>p {
+    font-family: TSTAR-PRO-Regular !important;
+    color: #f3f3f3;
+    font-size: var(--font-size14) !important;
+    font-style: normal;
+    font-weight: var(--font-weight-300);
+    line-height: 19.6px !important
 }
