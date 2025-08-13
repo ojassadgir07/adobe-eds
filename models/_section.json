@@ -33,6 +33,18 @@
             {
               "name": "Highlight",
               "value": "highlight"
+            },
+            {
+              "name": "hero-footer",
+              "value": "hero-footer"
+            },
+            {
+              "name": "hero-footer-icon",
+              "value": "hero-footer-icon"
+            },
+            {
+              "name": "hero-footer-policy",
+              "value": "hero-footer-policy"
             }
           ]
         }
