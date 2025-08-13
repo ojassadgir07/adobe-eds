@@ -1,20 +1,65 @@
 footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+    background-color: var(--light-color);
+    font-size: var(--body-font-size-xs);
 }
 
-footer .footer > div {
-  margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+.footer-wrapper {
+    background-color: black !important;
+    color: white;
+     background-color: var(--Brand-Black, #000000);
+    padding: 60px 90px 34px 90px
 }
 
-footer .footer p {
-  margin: 0;
+.footer>div>.hero-footer>.default-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
 }
 
-@media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
-  }
+.footer>div>.hero-footer>.default-content-wrapper>ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style: none;
+    width: 100%;
+}
+
+.footer>div>.hero-footer>.default-content-wrapper>ul>li>p {
+   padding-bottom: 8px;
+}
+
+.footer>div>.hero-footer>.default-content-wrapper>ul>li>p>a {
+    background-color: transparent;
+    font-family: TRANSDUCER-Bold !important;
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size16) !important;
+    line-height: 22.4px !important;
+    color: #f3f3f3;
+    padding-bottom: 1.5rem !important
+}
+
+.footer>div>.hero-footer>.default-content-wrapper>ul>li>ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 1rem;
+}
+
+.footer>div>.hero-footer>.default-content-wrapper>ul>li>ul>li>a {
+        text-decoration: none !important;
+            color: #f3f3f3;
+                font-size: var(--font-size16);
+    font-family: TSTAR-PRO-Medium;
+    color: var(--text-color-lightgrey);
+    padding-bottom: 10px;
+   
+
+  
+    font-style: normal;
+    font-weight: var(--font-weight-400);
+    line-height: 22.4px;
+    padding-bottom: .5rem !important
+    
 }
