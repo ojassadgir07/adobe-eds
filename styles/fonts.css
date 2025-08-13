@@ -80,6 +80,13 @@
 }
 
 @font-face {
+  font-family: "TRANSDUCER-Regular";
+  font-style: "Regular";
+  font-display: swap;
+  src: url('../fonts/TRANSDUCER-Regular.otf') format('woff2');
+}
+
+@font-face {
   font-family: hero-icon-font;
   font-style: normal;
   font-weight: normal;
