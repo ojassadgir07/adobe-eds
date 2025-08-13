@@ -170,15 +170,38 @@ async function createForm(formHref, submitHref) {
 
   const form = document.createElement("form");
   form.dataset.action = submitHref;
+  const formHeading = document.createElement("div");
+  formHeading.classList.add("form-heading");
+
+  const formFields = document.createElement("div");
+  formFields.classList.add("fields-container");
+  // form.append(formFields);
 
   const fields = await Promise.all(
     json.data.map((fd) => createField(fd, form))
   );
+  console.log("fields",fields);
+
+  // fields.forEach((field) => {
+  //   if (field) {
+  //     form.append(field);
+  //   }
+  // });
+
   fields.forEach((field) => {
-    if (field) {
-      form.append(field);
-    }
-  });
+  if (!field) return;
+
+  if (field.classList.contains("heading-wrapper") || 
+      field.classList.contains("plaintext-wrapper")) {
+    // Append outside the form
+    formHeading.append(field);
+  } else {
+    // Append inside the form
+    formFields.append(field);
+  }
+});
+form.append(formHeading);
+form.append(formFields);
 
   const fieldsets = form.querySelectorAll("fieldset");
   fieldsets.forEach((fieldset) => {
