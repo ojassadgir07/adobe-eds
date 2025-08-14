@@ -147,8 +147,24 @@ function getCityJsonList(stateOption) {
     });
 }
 
-window.onload = function () {
-  console.log("ele",document.querySelector("#form-f1 .field-wrapper  .input-wrapper .dropdown-btn"))
+ function waitForElement(selector, callback) {
+  const observer = new MutationObserver(() => {
+    const el = document.querySelector(selector);
+    if (el) {
+      observer.disconnect();
+      callback(el);
+    }
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+}
+
+// Usage:
+waitForElement('.field-wrapper.text-wrapper[data-fieldset="f1"] .custom-dropdown-list', (dropdownList) => {
+  
   // state dropdown toggle functionality
   document.querySelector("#form-f1 .field-wrapper:first-child  .input-wrapper .dropdown-btn")
     .addEventListener("click", function () {
@@ -208,10 +224,7 @@ document.querySelector("#form-f1 div:last-child .custom-dropdown-list")
     document.querySelector("#form-f1 div:last-child .custom-dropdown-list").style.display = "none";
     document.querySelector("#form-f1 div:last-child .custom-dropdown-list").classList.remove("show");
   });
-
-
-
-};
+});
 
 function errorField(message) {
   return p({ class: "error-msg" }, message);

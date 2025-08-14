@@ -207,12 +207,13 @@
     margin-top: 12px;
 }
 .form form .fields-container fieldset#form-f1 .custom-dropdown-list {
-    max-height: 140px;
-    top: 45px;
+    max-height: 182px;
+    width: 100%;
+    top: 42px;
     position: absolute;
     border: 1px solid #999;
     overflow-y: scroll;
-    border-radius: 8px;
+    border-radius: 0;
     display: none;
     background-color: #fff;
     z-index: 1000;
@@ -220,6 +221,10 @@
 }
 .form form .fields-container fieldset#form-f1 .custom-dropdown-list li::marker{
     margin: 0;
+}
+.form form .fields-container fieldset#form-f1 .custom-dropdown-list li{
+    display: flex;
+    padding: 8px;
 }
 .form form .fields-container fieldset#form-f1 .custom-dropdown-list li a{
     color: #ee2326;
