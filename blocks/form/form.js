@@ -18,7 +18,7 @@ function createDropdownInput(placeholder, name) {
   const input = inputEl({ placeholder, class: 'react-select__input', autocomplete: 'off', name });
   const clearBtn = span({ class: 'clear-btn' }, '×');
   const dropdownBtn = span({ class: 'dropdown-btn' },
-    img({ src: '/icons/svgviewer-png-output.png', width: 16, height: 16, alt: 'Dropdown' })
+    img({ src: '/icons/svgviewer-png-output.svg', width: 16, height: 16, alt: 'Dropdown' })
   );
   const wrapper = div({ class: 'input-wrapper' }, input, clearBtn, dropdownBtn);
   const list = div({ class: 'custom-dropdown-list scrollable', style: 'display:none' });
@@ -79,6 +79,139 @@ function populateList(input, list, data, onSelect) {
     }
   }
 }
+
+
+function getStateJsonList() {
+  fetch("https://www.heromotocorp.com/content/hero-commerce/in/en/jcr:content.state-and-city.json", {
+    method: "GET"
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(resp => {
+      const stateHtmlList = document.querySelector("#form-f1 div:first-child .custom-dropdown-list");
+      resp.data.stateCity.forEach(state => {
+        const li = document.createElement("li");
+        li.setAttribute("value", state.label);
+        const a = document.createElement("a");
+        a.setAttribute("href", "javascript:void(0)");
+        a.textContent = state.label;
+        li.appendChild(a);
+        stateHtmlList.appendChild(li);
+      });
+    })
+
+    .catch(error => {
+      console.error("Fetch error:", error);
+    });
+}
+  getStateJsonList();
+
+
+function getCityJsonList(stateOption) {
+  fetch("https://www.heromotocorp.com/content/hero-commerce/in/en/jcr:content.state-and-city.json", {
+    method: "GET"
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(finalDataCity => {
+      const finalCity = finalDataCity.data.stateCity;
+      const stateData = finalCity.find(
+        state => state.label.toLowerCase() === stateOption.toLowerCase()
+      );
+        const cityHtmlList = document.querySelector("#form-f1 div:last-child .custom-dropdown-list");
+        cityHtmlList.innerHTML = "";
+        if (stateData && stateData.cities) {
+          stateData.cities.forEach(city => {
+            const li = document.createElement("li");
+            li.setAttribute("value", city.label);
+            const a = document.createElement("a");
+            a.setAttribute("href", "javascript:void(0)");
+            a.textContent = city.label;
+            li.appendChild(a);
+            cityHtmlList.appendChild(li);
+          });
+        } else {
+          console.warn(`No cities found for state: ${stateOption}`);
+        }
+    })
+    .catch(error => {
+      console.error("Error fetching city list:", error);
+    });
+}
+
+window.onload = function () {
+  console.log("ele",document.querySelector("#form-f1 .field-wrapper  .input-wrapper .dropdown-btn"))
+  // state dropdown toggle functionality
+  document.querySelector("#form-f1 .field-wrapper:first-child  .input-wrapper .dropdown-btn")
+    .addEventListener("click", function () {
+      document.querySelector("#form-f1 div:first-child .custom-dropdown-list")
+        .classList.toggle("show");
+      document.querySelector("#form-f1 div:last-child .custom-dropdown-list")
+        .style.display = "none";
+      const stateDropdown =document.querySelector("#form-f1 div:first-child .custom-dropdown-list");
+      stateDropdown.style.display =
+        stateDropdown.style.display === "none" || !stateDropdown.style.display
+          ? "block"
+          : "none";
+    });
+
+
+  // city dropdown toggle functionality
+  document.querySelector("#form-f1 .field-wrapper:last-child  .input-wrapper .dropdown-btn")
+    .addEventListener("click", function () {
+      document.querySelector("#form-f1 div:last-child .custom-dropdown-list")
+        .classList.toggle("show");
+      const cityDropdown =document.querySelector("#form-f1 div:last-child .custom-dropdown-list");
+      cityDropdown.style.display =
+        cityDropdown.style.display === "none" || !cityDropdown.style.display
+          ? "block"
+          : "none";
+    });
+
+  // click li function for state city 
+  document.querySelector("#form-f1 div:first-child .custom-dropdown-list").addEventListener("click", function (e) {
+    if (e.target.tagName.toLowerCase() === "li") {
+      const selectedText = e.target.textContent;
+      const firstInput = document.querySelector("#form-f1 .field-wrapper:first-child .input-wrapper input");
+      firstInput.value = selectedText;
+      firstInput.textContent = selectedText;
+      firstInput.classList.remove("placeholder-text");
+      const lastInput = document.querySelector("#form-f1 .field-wrapper:last-child .input-wrapper input");
+      lastInput.value = "";
+      lastInput.textContent = lastInput.getAttribute("placeholder");
+      lastInput.classList.add("placeholder-text");
+      document.querySelector("#form-f1 div:first-child .custom-dropdown-list").style.display = "none";
+      document.querySelector("#form-f1 div:last-child .custom-dropdown-list").style.display = "none";
+      getCityJsonList(selectedText);
+      document.querySelector("#form-f1 div:first-child .custom-dropdown-list").classList.remove("show");
+    }
+});
+ // click li for city data
+document.querySelector("#form-f1 div:last-child .custom-dropdown-list")
+  .addEventListener("click", function (e) {
+    const li = e.target.closest("li");
+    if (!li) return;
+    const input = document.querySelector("#form-f1 .field-wrapper:last-child .input-wrapper input");
+    input.value = li.textContent.trim();
+    input.textContent = li.textContent.trim();
+    console.log("red")
+    input.classList.remove("placeholder-text");
+    document.querySelector("#form-f1 div:first-child .custom-dropdown-list").style.display = "none";
+    document.querySelector("#form-f1 div:last-child .custom-dropdown-list").style.display = "none";
+    document.querySelector("#form-f1 div:last-child .custom-dropdown-list").classList.remove("show");
+  });
+
+
+
+};
 
 function errorField(message) {
   return p({ class: "error-msg" }, message);
@@ -180,7 +313,6 @@ async function createForm(formHref, submitHref) {
   const fields = await Promise.all(
     json.data.map((fd) => createField(fd, form))
   );
-  console.log("fields",fields);
 
   // fields.forEach((field) => {
   //   if (field) {
@@ -244,7 +376,18 @@ async function handleSubmit(form) {
     submit.disabled = true;
     form.classList.add("dsp-none");
 
-    form.closest(".section").querySelector(".book-ride-thankyou-wrapper").classList.add("dsp-block");
+    const thankYouContainer = document.createElement('div');
+    const statusHeading = document.createElement('h1');
+    statusHeading.innerText = "Thank You!"
+    thankYouContainer.append(statusHeading)
+    const statusDesc= document.createElement('p');
+    statusDesc.innerText = "We will connect with you soon."
+    thankYouContainer.append(statusDesc)
+    thankYouContainer.classList.add("thank-you");
+    thankYouContainer.classList.add("dsp-none");
+    form.closest(".form-container").append(thankYouContainer);
+
+    // form.closest(".section").querySelector(".book-ride-thankyou-wrapper").classList.add("dsp-block");
     const data = await fetchBookARide(
       form.name.value,
       form.mobile.value,
@@ -257,13 +400,14 @@ async function handleSubmit(form) {
 
     if (data.ok) {
       form.parentElement.style.padding = '0';
-      form.closest(".section").querySelector(".book-ride-thankyou-wrapper .loader").classList.add("dsp-none");
-      form.closest(".section").querySelector(".book-ride-thankyou-wrapper .succ-content").classList.add("dsp-block");
-      // return
+      // form.closest(".section").querySelector(".book-ride-thankyou-wrapper .loader").classList.add("dsp-none");
+      form.closest(".section").querySelector(".thank-you").classList.add("dsp-none");
+  
     } else {
-      form.classList.add("dsp-block");
-      form.closest(".section").querySelector(".book-ride-thankyou-wrapper").classList.add("dsp-none");
-      form.closest(".section").querySelector(".book-ride-thankyou-wrapper .succ-content").textContent = 'Error While Submitting';
+      // form.classList.add("dsp-block");
+      // form.closest(".section").querySelector(".book-ride-thankyou-wrapper").classList.add("dsp-none");
+      form.closest(".section").querySelector(".thank-you").classList.remove("dsp-none");
+      form.closest(".section").querySelector(".thank-you h1").textContent = 'Oops !! Something went wrong.';
     }
   } catch (e) {
     console.error(e);
@@ -288,16 +432,16 @@ export default async function decorate(block) {
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const valid = checkValidity();
-    if (!valid.includes(false)) {
+    // const valid = checkValidity();
+    // if (!valid.includes(false)) {
       handleSubmit(form);
-    } else {
-      const firstInvalidEl = form.querySelector(":invalid:not(fieldset)");
-      if (firstInvalidEl) {
-        firstInvalidEl.focus();
-        firstInvalidEl.scrollIntoView({ behavior: "smooth" });
-      }
-    }
+    // } else {
+    //   const firstInvalidEl = form.querySelector(":invalid:not(fieldset)");
+    //   if (firstInvalidEl) {
+    //     firstInvalidEl.focus();
+    //     firstInvalidEl.scrollIntoView({ behavior: "smooth" });
+    //   }
+    // }
   });
 
   const state_inp = form.state;
