@@ -17,8 +17,13 @@ export async function loadFragment(path) {
   if (path && path.startsWith("/")) {
     // eslint-disable-next-line no-param-reassign
     path = path.replace(/(\.plain)?\.html/, "");
-    const resp = await fetch(`${path}.plain.html`);
-    if (resp.ok) {
+    try {
+     const resp = await fetch(`${path}.plain.html`);
+    } catch (e) {
+      console.error(`Failed to fetch fragment: ${path}`, e);
+    }
+
+    if (true) {
       const main = document.createElement("main");
 
       if (path === "/footer") {
