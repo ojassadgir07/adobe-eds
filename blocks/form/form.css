@@ -229,6 +229,8 @@
 .form form .fields-container fieldset#form-f1 .custom-dropdown-list li a{
     color: #ee2326;
     text-decoration: none;
+    text-align: center;
+    width: 100%;
 }
 
 .show{
