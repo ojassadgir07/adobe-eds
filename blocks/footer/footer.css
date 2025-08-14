@@ -72,12 +72,19 @@ footer {
 .footer>div>.hero-footer-icon>.default-content-wrapper>ul {
     list-style-type: none;
     padding: 0;
+       flex: auto;
 }
 
 .footer>div>.hero-footer-icon>.default-content-wrapper>ul>li>ul {
     list-style-type: none;
     display: flex;
+ 
     gap: 20px;
+}
+.footer>div>.hero-footer-policy {
+    margin: 1rem;
+    padding: 1rem;
+        border-top: 1px solid;
 }
 
 .footer>div>.hero-footer-policy>.default-content-wrapper {
@@ -126,4 +133,20 @@ footer {
     font-style: normal;
     font-weight: var(--font-weight-300);
     line-height: 19.6px !important
+}
+
+.hero-footer-icon>.default-content-wrapper>p>picture>img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.hero-footer-icon>.default-content-wrapper>p {
+    width: 88px;
+    height: 31px;
+    margin-right: 20px;
+}
+
+.hero-footer-icon>.default-content-wrapper>p>a {
+   display: none;
 }
