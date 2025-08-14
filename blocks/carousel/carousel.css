@@ -24,11 +24,6 @@
         --bs-gutter-x: 5rem;
     }
 }
-@media (min-width: 64rem) {
-    .hero-container-lg, .hero-container-sm, .carousel-container {
-        max-width: 85.375rem;
-    }
-}
 
 .carousel-wrapper {
     position: relative;
