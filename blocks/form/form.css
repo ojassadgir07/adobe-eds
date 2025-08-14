@@ -218,6 +218,14 @@
     z-index: 1000;
     scrollbar-width: none;
 }
+.form form .fields-container fieldset#form-f1 .custom-dropdown-list li::marker{
+    margin: 0;
+}
+.form form .fields-container fieldset#form-f1 .custom-dropdown-list li a{
+    color: #ee2326;
+    text-decoration: none;
+}
+
 .show{
     display: block !important;
 }
