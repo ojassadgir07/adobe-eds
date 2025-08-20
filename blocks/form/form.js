@@ -108,7 +108,6 @@ function getStateJsonList() {
       console.error("Fetch error:", error);
     });
 }
-  getStateJsonList();
 
 
 function getCityJsonList(stateOption) {
@@ -164,7 +163,9 @@ function getCityJsonList(stateOption) {
 
 // Usage:
 waitForElement('.field-wrapper.text-wrapper[data-fieldset="f1"] .custom-dropdown-list', (dropdownList) => {
-  
+  //populate the state dropdowns 
+  getStateJsonList();
+
   // state dropdown toggle functionality
   document.querySelector("#form-f1 .field-wrapper:first-child  .input-wrapper .dropdown-btn")
     .addEventListener("click", function () {
@@ -194,7 +195,7 @@ waitForElement('.field-wrapper.text-wrapper[data-fieldset="f1"] .custom-dropdown
 
   // click li function for state city 
   document.querySelector("#form-f1 div:first-child .custom-dropdown-list").addEventListener("click", function (e) {
-    if (e.target.tagName.toLowerCase() === "li") {
+    if (e.target.tagName.toLowerCase() === "a") {
       const selectedText = e.target.textContent;
       const firstInput = document.querySelector("#form-f1 .field-wrapper:first-child .input-wrapper input");
       firstInput.value = selectedText;
@@ -213,12 +214,11 @@ waitForElement('.field-wrapper.text-wrapper[data-fieldset="f1"] .custom-dropdown
  // click li for city data
 document.querySelector("#form-f1 div:last-child .custom-dropdown-list")
   .addEventListener("click", function (e) {
-    const li = e.target.closest("li");
+    const li = e.target.closest("a");
     if (!li) return;
     const input = document.querySelector("#form-f1 .field-wrapper:last-child .input-wrapper input");
     input.value = li.textContent.trim();
     input.textContent = li.textContent.trim();
-    console.log("red")
     input.classList.remove("placeholder-text");
     document.querySelector("#form-f1 div:first-child .custom-dropdown-list").style.display = "none";
     document.querySelector("#form-f1 div:last-child .custom-dropdown-list").style.display = "none";
