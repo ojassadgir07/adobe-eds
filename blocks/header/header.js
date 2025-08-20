@@ -1,6 +1,6 @@
 import { fetchPlaceholders, getMetadata } from "../../scripts/aem.js";
 import { loadFragment } from "../fragment/fragment.js";
-import { masterHtml } from "./master.js";
+
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia("(min-width: 900px)");
@@ -83,12 +83,12 @@ export async function getFetchAPI(url) {
 export async function appendXF(block, xfPath) {
   const resp = await getFetchAPI(xfPath);
   let str;
-  if (!resp.ok) {
-    console.error(`Failed to fetch XF: ${xfPath}`);
-    str = masterHtml;
-  } else {
+  if (resp.ok) {
     str = await resp.text();
+  } else {
+    return;
   }
+
   const { location } = window;
   const isLocalOrAem =
     location.href.includes("localhost") ||
