@@ -1,5 +1,5 @@
 /* stylelint-disable no-empty-source */
-.icon-moon-heroicon-open-eye {
+.heroicon-open-eye {
     &:before {
       content: '\e996';
     }

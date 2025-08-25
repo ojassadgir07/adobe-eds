@@ -178,7 +178,7 @@ export async function loadFragment(path) {
     </picture>
   </p>
   <ul>
-    <li><span class="icon icon-moon-heroicon-open-eye"></span>Overview</li>
+    <li><span class="icon heroicon-open-eye"></span>Overview</li>
     <li><span class="icon icon-moon-heroicon-bike"></span><a href="#">FEATURES</a></li>
     <li><span class="icon icon-moon-heroicon-wallet-money"></span><a href="#">PRICE</a></li>
     <li><span class="icon icon-moon-heroicon-exchange"></span><a href="#">COMPARE</a></li>
