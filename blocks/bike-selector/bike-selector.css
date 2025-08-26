@@ -133,6 +133,13 @@
     width: 44.375rem;
 }
 
+.section.bike-selector-container .bike-selector-wrapper  .bike-selector__360View  .hero-360 .hero-360 .spritespin-stage .rotate{
+    width: 490px;
+    height: 320px;
+    position: relative;
+    left: 35px;
+}
+
 .section.bike-selector-container .bike-selector-wrapper  .bike-selector__360View .hero-360 .rotate-images {
     display: flex;
     justify-content: space-between;

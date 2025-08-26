@@ -46,9 +46,11 @@
   font-family: roboto-condensed-fallback;
   size-adjust: 88.82%;
   src: local('Arial');
+  font-display: swap;
 }
 
 @font-face {
+  font-display: swap;
   font-family: roboto-fallback;
   size-adjust: 99.529%;
   src: local('Arial');
