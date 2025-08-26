@@ -147,7 +147,7 @@ export async function loadFragment(path) {
     <source type="image/webp" srcset="./media_15233006c51f5590f8ba7af3007417491f45e4746.svg?width=2000&amp;format=webply&amp;optimize=medium" media="(min-width: 600px)">
     <source type="image/webp" srcset="./media_15233006c51f5590f8ba7af3007417491f45e4746.svg?width=750&amp;format=webply&amp;optimize=medium">
     <source type="image/svg+xml" srcset="./media_15233006c51f5590f8ba7af3007417491f45e4746.svg?width=2000&amp;format=svg&amp;optimize=medium" media="(min-width: 600px)">
-    <img loading="lazy" alt="header 2" src="./media_15233006c51f5590f8ba7af3007417491f45e4746.svg?width=750&amp;format=svg&amp;optimize=medium" width="122" height="41">
+    <img loading="lazy" alt="header 2" src="./media_15233006c51f5590f8ba7af3007417491f45e4746.svg?width=750&amp;format=svg&amp;optimize=medium" width="98" height="41">
   </picture>
 </div>
 <div>

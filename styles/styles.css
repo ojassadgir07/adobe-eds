@@ -218,14 +218,27 @@ main img {
 }
 
 .icon {
-  display: inline-block;
-  height: 24px;
-  width: 24px;
+  font-family: "hero-icon-font" !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    font-size: 24px;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: pointer;
 }
 
 .icon img {
-  height: 100%;
-  width: 100%;
+  display: block;
 }
 
 /* sections */
@@ -253,7 +266,7 @@ main .section.light,
 main .section.highlight {
   background-color: var(--light-color);
   margin: 0;
-  padding: 40px 0;
+  /* padding: 40px 0; */
 }
 
 .hero-icon {
@@ -283,32 +296,56 @@ main .section.highlight {
   content: "\E99E";
   font-size: 2rem;
 }
-
+.icon-moon-heroicon-bike img,
+.icon-moon-heroicon-wallet-money img,
+.icon-moon-heroicon-exchange img,
+.icon-moon-heroicon-settings img,
+.icon-moon-heroicon-delear-locator img,
+.icon-moon-heroicon-open-eye img {
+  display: none;
+}
 
 .icon-moon-heroicon-open-eye:before {
   content: "\E996";
 }
-
+.icon-moon-heroicon-open-eye:hover:before {
+  color: #ee2326;
+}
 .icon-moon-heroicon-bike:before {
   content: "\E915";
 }
-
-.icon-moon-heroicon-bike:before {
-  content: "\E915";
+.icon-moon-heroicon-bike:hover:before {
+  color: #ee2326;
 }
-
 .icon-moon-heroicon-wallet-money:before {
   content: "\E9C6 ";
 }
-
+.icon-moon-heroicon-wallet-money:hover:before {
+  color: #ee2326;
+}
 .icon-moon-heroicon-exchange:before {
   content: "\E964 ";
 }
-
+.icon-moon-heroicon-exchange:hover:before {
+  color: #ee2326;
+}
 .icon-moon-heroicon-settings:before {
   content: "\E9AD ";
 }
-
+.icon-moon-heroicon-settings:hover:before {
+  color: #ee2326;
+}
 .icon-moon-heroicon-delear-locator:before {
   content: "\E942";
+}
+.icon-moon-heroicon-delear-locator:hover:before {
+  color: #ee2326;
+}
+.icon-youtube-icon img,
+.icon-facebook-icon img,
+.icon-linkedin-icon img,
+.icon-instagram-icon-hero img,
+.icon-twitter-icon img {
+  width: 32px;
+  height: 32px;
 }

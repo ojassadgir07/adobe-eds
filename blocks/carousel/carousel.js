@@ -32,7 +32,7 @@ export default function decorate(block) {
 console.log("NNN",swiperWrapper.querySelectorAll(".inner-innerSub-1 h3"))
 swiperWrapper.querySelectorAll(".inner-innerSub-1 h3").forEach((i) => {
  const span = document.createElement("span");
-  span.className = "heroicon-short-logo hero-icon me-5 mt-4";
+  span.className = "heroicon-short-logo hero-icon mt-4";
   i.prepend(span);
 });
   // Clear block and append new structure
