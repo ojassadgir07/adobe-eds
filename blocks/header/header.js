@@ -70,15 +70,15 @@ function toggleAllNavSections(sections, expanded = false) {
     });
 }
 
-// export async function getFetchAPI(url) {
-//   try {
-//     const resp = await fetch(url);
-//     return resp;
-//   } catch (error) {
-//     console.error("Fetch API error:", error);
-//     return error;
-//   }
-// }
+export async function getFetchAPI(url) {
+  try {
+    const resp = await fetch(url);
+    return resp;
+  } catch (error) {
+    console.error("Fetch API error:", error);
+    return error;
+  }
+}
 
 export async function appendXF(block, xfPath) {
   const resp = await getFetchAPI(xfPath);
