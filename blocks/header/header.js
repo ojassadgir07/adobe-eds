@@ -127,14 +127,10 @@ export async function appendXF(block, xfPath) {
       link.remove();
     }
   });
-  setTimeout(()=>{
-    block.append(div);
+
+  block.append(div);
 
   initDesktopMegaMenu();
-  }, 400);
-  // block.append(div);
-
-  // initDesktopMegaMenu();
 
   return block;
 }
