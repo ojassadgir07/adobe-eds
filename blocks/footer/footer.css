@@ -23,6 +23,7 @@ footer {
     justify-content: space-between;
     list-style: none;
     width: 100%;
+    padding-inline-start: unset;
 }
 
 .footer>div>.hero-footer>.default-content-wrapper>ul>li>p {
@@ -37,6 +38,7 @@ footer {
     font-size: var(--font-size16) !important;
     line-height: 22.4px !important;
     color: #f3f3f3;
+    padding-left: unset;
     
 }
 
@@ -46,6 +48,7 @@ footer {
     flex-direction: column;
     gap: 10px;
     padding: 0 1rem;
+    padding-inline-start: unset;
 }
 
 .footer>div>.hero-footer>.default-content-wrapper>ul>li>ul>li>a {
@@ -72,19 +75,21 @@ footer {
 .footer>div>.hero-footer-icon>.default-content-wrapper>ul {
     list-style-type: none;
     padding: 0;
-       flex: auto;
+    flex: auto;
 }
 
 .footer>div>.hero-footer-icon>.default-content-wrapper>ul>li>ul {
     list-style-type: none;
     display: flex;
- 
-    gap: 20px;
+    padding-bottom: 48px;
+    padding-top: 55px;
+    gap: 30px;
+    padding-inline-start: unset;
 }
 .footer>div>.hero-footer-policy {
     margin: 1rem;
-    padding: 1rem;
-        border-top: 1px solid;
+    padding: 26px 0 16px 0;
+    border-top: 1px solid;
 }
 
 .footer>div>.hero-footer-policy>.default-content-wrapper {
@@ -142,9 +147,8 @@ footer {
 }
 
 .hero-footer-icon>.default-content-wrapper>p {
-    width: 88px;
-    height: 31px;
-    margin-right: 20px;
+     height: 31px;
+    margin-right: 8px;
 }
 
 .hero-footer-icon>.default-content-wrapper>p>a {

@@ -164,11 +164,17 @@ export async function decorateBikeSelector(block) {
     { class: "bike-selector__360View" },
     div(
       { class: "hero-360 w-100" },
+      // div(
+      //   { class: "rotate-images" },
+      //   img({ class: "hero-icon left"}),
+      //   img({ class: "hero-icon right"})
+        
+      // )
       div(
-        { class: "rotate-images" },
-        img({ class: "hero-icon left", src: "/images/rotate-left.png" }),
-        img({ class: "hero-icon right", src: "/images/rotate-right.png" })
-      ),
+      { class: "rotate-images" },
+      i({ class: "hero-icon left" }),
+      i({ class: "hero-icon right" })
+    ),
       div(
         { class: "hero-360" },
         div(
