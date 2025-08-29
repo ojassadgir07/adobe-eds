@@ -68,6 +68,11 @@ header nav {
     gap: 1rem;
 }
 
+.nav-wrapper>#nav>.nav-tools>.default-content-wrapper>ul>li>a>span.icon>img {
+  height: 24px !important;
+  width: 24px !important;
+}
+
 .nav-bar {
     width: 100%;
     height: 40px;
