@@ -478,6 +478,21 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
   }
 }
 
+function handleNavBarStickiness() {
+  const navBar = document.querySelector(".section.nav-bar");
+  if (navBar) {
+    if (window.scrollY > 0) {
+      navBar.classList.add("sticky");
+    } else {
+      navBar.classList.remove("sticky");
+    }
+  }
+}
+
+window.addEventListener("scroll", handleNavBarStickiness);
+window.addEventListener("load", handleNavBarStickiness);
+
+
 /**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element

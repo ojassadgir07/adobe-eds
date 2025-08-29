@@ -1,5 +1,12 @@
 .nav-wrapper {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    max-width: 100vw;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+    z-index: 99;
+    background: #fff;
 }
 
 header nav .nav-hamburger {
@@ -113,3 +120,12 @@ header nav {
 .nav-bar > .default-content-wrapper > ul > li > a:hover {
     color: #ee2326
   }
+
+.section.nav-bar.sticky {
+    position: fixed;
+    top: 0;
+    display: none;
+    width: 100%;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
